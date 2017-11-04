@@ -1,13 +1,12 @@
 # SITE CONFIGURATION
 baseurl: "" # the subpath of your site, e.g. /blog/ (optional)
-url: "http://www.your-domain.com" # the base hostname & protocol for your site
+url: "http://baka-san.github.io" # the base hostname & protocol for your site
 
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
   # Meta
   title: Grant Backes # Your name will go here
   description: "A personal portfolio and blog website" # used by search engines
-
   # Header and footer text
   header_text: >
      <h1>Witty & Hilarious Rails Developer</h1>
