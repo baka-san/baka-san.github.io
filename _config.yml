@@ -20,11 +20,11 @@ theme_settings:
   rss: false
   email_address: gsbackes@gmail.com # Full email address, e.g. "sam@example.com"
   behance:
-  bitbucket: https://bitbucket.org/baka-san/
+  bitbucket: baka-san  # bitbucket profile name, e.g. "madebymunsters"
   dribbble:
   facebook:
   flickr:
-  github: https://github.com/baka-san # github profile name, e.g. "madebymunsters"
+  github: baka-san # github profile name, e.g. "madebymunsters"
   google_plus:
   instagram:
   linkedin: www.linkedin.com/in/grant-backes # Full URL

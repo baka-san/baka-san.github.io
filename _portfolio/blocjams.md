@@ -1,8 +1,9 @@
 ---
 layout: post
 title: BlocJams
-thumbnail-path: "img/blocjams.png"
+<!-- thumbnail-path: "img/blocjams.png" -->
 short-description: BlocJams is a Spotify-esque website, allowing users to listen to all of their favorite albums at the click of a button.
+
 ---
 
 
