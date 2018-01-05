@@ -55,6 +55,16 @@ header {
 }
 
 .post-content {
+  
+
+  img {
+    padding: 20px;
+  }
+
+  #home-page {
+  }
+
+
   form {
       input[type="text"], input[type="email"] {
         width:100%;
@@ -90,4 +100,16 @@ header {
         box-shadow:none;
       }
     }
+}
+
+
+.not-wikipedia {
+
+  .subscription-service {
+
+    // img {
+    //   padding: 0;
+    // }
+  }
+
 }
