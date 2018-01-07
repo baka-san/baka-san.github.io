@@ -323,10 +323,7 @@ With scoping out of the way, the last concern was displaying the relevant wikis 
 
 ## Live Editing of Wiki Pages and Adding Collaborators
 
-
-
-
-
+{% include image.html url="/img/not-wikipedia/wiki-edit-live-preview.gif" title="Fig 5: Admin's Scope" class="" %}
 
 
 
