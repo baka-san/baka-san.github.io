@@ -1,5 +1,6 @@
 ---
 layout: post
+class: not-reddit
 title: Not Reddit
 thumbnail-path: "img/not-reddit/home1.png"
 short-description: A place where you can share links and discuss rad topics with neckbeards.

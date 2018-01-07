@@ -2,7 +2,7 @@
 layout: post-header
 ---
 <article {% if page.feature-img %}class="feature-image"{% endif %}>
-  <section class="post-content">{{ content }}</section>
+  <section class="post-content {{ page.class }}">{{ content }}</section>
 </article>
 
 <!-- Disqus -->
@@ -10,4 +10,11 @@ layout: post-header
 <div class="comments">
   {% include disqus.html %}
 </div>
+{% endif %}
+
+
+{% for js in page.script-path %}
+{% endfor %}
+
+{% if page.script-path %}
 {% endif %}

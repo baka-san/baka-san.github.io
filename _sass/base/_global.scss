@@ -117,3 +117,29 @@ img[align=left] {
 img[align=right] {
   margin-left: 3%;
 }
+
+
+.code-full { 
+  overflow-x: auto;  
+  width: 100%;
+
+  img {
+    min-width: 700px;
+    width: 100%;
+  }
+}
+
+.highlight {
+  margin: 20px 0;
+  // overflow-y: auto;
+
+  @media (max-width: $screen-sm) { 
+    font-size: 14px
+  }
+
+  pre {
+    max-height: 400px;
+  }
+
+
+}

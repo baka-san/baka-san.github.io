@@ -1,6 +1,9 @@
 ---
 layout: post
 title: Not Wikipedia
+class: not-wikipedia
+script-path:
+- scripts/not-wikipedia.js
 thumbnail-path: "img/not_wikipedia.png"
 short-description: Like Wikipedia, Only Not
 ---
@@ -8,20 +11,26 @@ short-description: Like Wikipedia, Only Not
 {:.center}
 ![]({{ site.baseurl }}/img/not-wikipedia.png)
 
-<div class='not-wikipedia' markdown="1">
-
 I WOULD LOVE TO ADD BETTER ERROR MESSAGES AND REDIRECTS FOR PUNDIT
 
 MORE TESTING
 
-BETTER USER INTERFACE SUCH AS CONFIRMATIONS WHEN DATA IS ENTERED OR BEFORE YOU DELETE YOURSELF 
+BETTER USER INTERFACE SUCH AS CONFIRMATIONS WHEN DATA IS ENTERED OR BEFORE YOU DELETE YOURSELF
 
-BETTER PERMISSIONS, E.G. NO DELETING OTHER PEOPLE'S POSTS, ETC
+BETTER PERMISSIONS, E.G. NO DELETING OTHER PEOPLE'S POSTS, ONLY OWNERS OF POSTS CAN MAKE IT PRIVATE, APPROVAL OF EDITS FROM OWNER, ETC
 
 DATA BACKUP FOR RECOVERY
 
+SEARCH FOR WIKIS RATHER THAN BROWSING
 
-Like Wikipedia, Not Wikipedia is a user-maintained encyclopedia. Anyone can view the information on the site, however, to get involved with creating and maintaining wikis, a user needs to create a free account. From there, a user can upgrade to a paid membership, allowing the creation of private wikis, which can be shared with individuals the user wishes to collaborate with.
+
+
+
+
+
+
+
+Like Wikipedia, Not Wikipedia is a user-maintained encyclopedia. Anyone can view the information on the site, however, to get involved with creating and maintaining wikis, a user needs to create a free account. From there, a user can upgrade to a paid membership, allowing the creation of private wikis, which can be shared with individuals the user wants to collaborate with.
 
 The app is deployed on Heroku: https://not-wikipedia-heroku.herokuapp.com/
 
@@ -37,39 +46,210 @@ The source code is available at GitHub: https://github.com/baka-san/not-wikipedi
 
 
 ## Users and User Roles
-Rather than creating an authentication system from scratch, [Devise](https://github.com/plataformatec/devise) was used for user authentication. Devise provides a plethora of customizable options, though only some, such as account recovery via email, were included. By including this Gem and following along with the Devise documentation, I was quickly able to allow users to sign up for Not Wikipedia. However, this was the easiest step. 
+Rather than creating an authentication system from scratch, [Devise](https://github.com/plataformatec/devise) was used for user authentication. Devise provides a plethora of customizable options, though only some, such as account recovery via email, were included. By including this Gem and following along with the Devise documentation, I was quickly able to allow users to sign up for Not Wikipedia. However, this was the easiest step.
 
 One challenge of this website was to create different user roles - standard, premium, or admin - as well as handling non-users. A guest should be able to browse through wikis, but they should not be able to edit or delete anything. Standard users should be able to edit and delete public pages, while premium users should be able to create private wikis which they can invite others to collaborate on. Clearly, care needed to be taken handling all of the different roles and permissions. [Pundit](https://github.com/elabs/pundit) was chosen to handle authorization for the wiki pages.
 
-Pundit is centered around creating policies which govern whether a user is authorized to perform a particular RESTful action. For example, the code below, which is contained in the wiki policy, checks whether a user can delete a wiki. If the wiki is private, the code checks if the user is the owner, an admin, or a collaborator. If they are, then they can delete the wiki; if they aren’t, the action is not allowed. If the wiki is public, the code just verifies that a user is present. Similar code can be found for all RESTful actions in `app/policies/wiki_policy.rb`. 
+Pundit is centered around creating policies which govern whether a user is authorized to perform a particular RESTful action. For example, the code below, which is contained in the wiki policy, checks whether a user can delete a wiki. If the wiki is private, the code checks if the user is the owner, an admin, or a collaborator. If they are, then they can delete the wiki; if they aren’t, the action is not allowed. If the wiki is public, the code just verifies that a user is present. Similar code can be found for all RESTful actions in `app/policies/wiki_policy.rb`.
 
-{:.center}
-![]({{ site.baseurl }}/img/not-wikipedia/pundit-wiki-policy-1.png)
+{% highlight ruby %}
+# app/policies/wiki_policy.rb
+...
+  def destroy?
+    if @wiki.private?
+      authorized_for_this_private_wiki?
+    else
+      @user.present?
+    end
+  end
 
-Calling such policies is actually quite easy. In the controller, one simply must specify a user and a wiki. However, due to Pundit’s magical powers of inference, `current_user` is assumed and only a wiki needs to be passed like follows:
+  def authorized_for_this_private_wiki?
+    @user && (@wiki.owner?(@user) || @user.admin? || @wiki.collaborators.include?(@user))
+  end
+...
+{% endhighlight %}
 
-{:.center}
-![]({{ site.baseurl }}/img/not-wikipedia/pundit-wiki-policy-2.png)
+Calling such policies is actually quite easy. In the controller, one simply must specify a user and a wiki.
+In the controller, one must simply pass a wiki and Pundit magically infers `current_user` as the user (if desired, one can explicitly call pundit passing both a user and a wiki).
+
+{% highlight ruby %}
+# app/controllers/wikis_controller.rb
+...
+  def destroy
+    @wiki = Wiki.find(params[:id])
+    authorize @wiki
+
+    if @wiki.destroy
+      flash[:notice] = "\"#{@wiki.title}\" is dead. Good job, you killed it."
+      redirect_to action: :index
+    else
+      flash.now[:alert] = "There was an error killing the wiki. The police will arrive shortly."
+      render :show
+    end
+  end
+...
+{% endhighlight %}
+
 
 **The last amazing thing Pundit allows is easy scoping. In `wiki_policy.rb`, admin and premium users were specified to be able to see all wikis while standard users can only see public wikis and wikis which they are collaborating on. Then to use the scope, in the controller, something like `@wikis = policy_scope(Wiki)` can be retrieve the appropriate wikis for the current user. MOVE THIS**
 
 ## Upgrading to Premium
-I like money, so getting users to upgrade and give me their cash is pretty important. [Stripe](https://stripe.com/) is the way I went for payments and if you haven’t tried it out, you should. The difficulty in implementing the code is that both ActiveRecord (user and subscription models) and the Stripe database (customer, subscription, plan, and credit card) all had to communicate with each other and be maintained. The subscription cycle is as follows:
+I like money, so getting users to upgrade and give me their cash is pretty important. A premium user has the ability to both create private wikis and invite “collaborators” to work on their private wikis. Collaborators do not have to be premium users. A private wiki can be made public at any time.
+
+[Stripe](https://stripe.com/) is the way I went for payments and if you haven’t tried it out, you should. The difficulty in implementing the code is that both ActiveRecord (user and subscription models) and the Stripe database (customer, subscription, plan, and credit card) all had to communicate with each other and be maintained. The subscription cycle is as follows:
 1. The user decides to upgrade to a premium plan.
 2. The user enters their credit card information.
 3. The credit card information is securely sent to Stripe.
-4. Stripe sends back a token which is used to create a customer and subscription (`subscriptions_service.rb`).
+4. Stripe sends back a token which is used to create a customer and subscription.
 
-{:.pull-left .subscription-service}
-![]({{ site.baseurl }}/img/not-wikipedia/subscription-service-1.png)
+{% highlight ruby %}
+# app/services/subscriptions_service.rb
+  {% include code/not-wikipedia/subscriptions_service.rb %}
 
-{:.pull-right .subscription-service}
-![]({{ site.baseurl }}/img/not-wikipedia/subscription-service-2.png)
+{% endhighlight %}
 
-5\. The user's role is changed from standard to premium and a new subscription is created in ActiveRecord. Sensitive information is not stored, however, Stripe customer and subscription ids are stored and are used when communicating with Stripe (`subscriptions_controller.rb`).    
+5\. The user's role is changed from standard to premium and a new subscription is created in ActiveRecord. Sensitive information, such as credit card number, is not stored. Stripe customer and subscription ids are stored and are used when communicating with Stripe, however.   
+
+{% highlight ruby %}
+# app/controllers/subscriptions_controller.rb
+...
+def create
+  # If the user already has an active subscription, don't allow them to subscribe again.
+  if current_user.upgraded_account?
+    flash[:alert] = "You're already a premium member you silly goose!"
+    redirect_to current_user
+  else
+    begin
+    # Create a subscription in the database and in Stripe
+    SubscriptionsService.new(subscriptions_params, current_user).call_create
+
+    current_user.upgrade_to_premium
+
+    if current_user.save
+      flash[:notice] = "Thanks for all the cash! Feel free to pay us again."
+      redirect_to current_user
+    else
+      flash[:alert] = "We were unable to upgrade your account, but we still took your cash. Just kidding. Please try again or contact support."
+      redirect_back(fallback_location: root_path)
+    end
+    
+    # Stripe will send back CardErrors, displayed in this rescue block.
+    rescue Stripe::CardError => e
+      flash[:alert] = e.message
+      redirect_to new_subscription_path
+    end
+  end
+end
+...
+
+private
+
+  def subscriptions_params
+    params.permit(:stripeEmail, :stripeToken)
+  end
+...
+{% endhighlight %}
+
 6\. After a month, Stripe attempts to charge the card again and renew the subscription resulting in a success or failure. The resulting event object is sent by Stripe via an HTTP POST request which is handled by the stripe controller. The “webhook” route is specified in `routes.rb`. If the payment is successful, the subscription dates are upgraded in ActiveRecord. If the payment is unsuccessful, the subscription is deleted on both Stripe and in ActiveRecord and the user is downgraded accordingly.  
-7\. Lastly, at any time during the billing period, a user may wish to cancel their autopay. This can be done on the user’s homepage. Doing so does not cancel the account immediately. Rather, Stipe is told to cancel the subscription at the end of the cycle via `at_period_end: true` and ActiveRecord’s `Subscription.autopay` is set to `false` (`subscriptions_controller#turn_off_autopay`). Likewise, autopay can be turned on again anytime before the subscription period ends in the same manner (`subscriptions_controller#turn_on_autopay`). When it comes time to charge the user again, if `at_period_end` is `true`, the user will not be charged and their subscriptions will be deleted from Stripe and ActiveRecord.  
 
+{% highlight ruby %}
+# app/controllers/stripe_controller.rb
+...
+class StripeController < ApplicationController
+  protect_from_forgery :except => :webhooks
+
+  def webhooks
+    begin
+      event_json = JSON.parse(request.body.read)
+      event_object = event_json['data']['object']
+      #refer event types here https://stripe.com/docs/api#event_types
+      case event_json['type']
+
+        when 'invoice.payment_succeeded'
+          # Update subscription in ActiveRecord
+          customer = User.where(stripe_customer_id: event_object['customer']).first
+          subscription = customer.subscription
+
+          if subscription
+            subscription.current_period_start = date.today.to_datetime.to_i
+            subscription.current_period_end = date.today.to_datetime.to_i + 1.month.to_i
+            subscription.save
+          end
+
+        when 'customer.subscription.deleted'
+          # Find the customer from ActiveRecord
+          customer = User.where(stripe_customer_id: event_object.customer).first
+          subscription = customer.subscription
+
+          # Delete the subscription from ActiveRecord
+          if subscription
+            subscription.destroy
+            subscription.save
+          end
+
+          # Make user's private wiki's public
+          private_wikis = customer.wikis.where(private: true)
+          private_wikis.update_all(private: false)
+      end
+...
+{% endhighlight %}
+
+
+7\. Lastly, a user may want to turn off autopay, leading to the cancelation of their account at the end of the billing period. This can be done on the user’s homepage. Doing so does not cancel the account immediately. Rather, Stipe is told to cancel the subscription at the end of the cycle via `at_period_end: true` and ActiveRecord’s `Subscription.autopay` is set to `false` (`subscriptions_controller#turn_off_autopay`). Likewise, autopay can be turned on again anytime before the subscription period ends in the same manner (`subscriptions_controller#turn_on_autopay`). When it comes time to charge the user again, if `at_period_end` is `true`, the user will not be charged and their subscriptions will be deleted from Stripe and ActiveRecord.  
+
+{% highlight ruby %}
+# app/controllers/subscriptions_controller.rb
+...
+def turn_on_autopay
+  if current_user.role != "premium"
+    flash[:alert] = "You aren't a premium member!"
+    redirect_back(fallback_location: root_path)
+  else
+    subscription = current_user.subscription
+    subscription.turn_on_autopay
+
+    flash.now[:notice] = "You're successfully set up to give us more money. Thanks for the cash!\
+                      Your next payment will automatically occur on #{display_date(subscription.current_period_end)}."
+    redirect_to current_user
+  end
+end
+
+def turn_off_autopay
+  if current_user.role != "premium"
+    flash[:alert] = "You aren't a premium member!"
+    redirect_back(fallback_location: root_path)
+  else
+    subscription = current_user.subscription
+    subscription.turn_off_autopay
+
+    flash.now[:notice] = "Your account will be downgraded on #{display_date(subscription.current_period_end)}. Goodbye mere standard user."
+    redirect_to current_user
+  end
+end
+...
+{% endhighlight %}
+
+{:.wiki-index}
+![]({{ site.baseurl }}/img/not-wikipedia/wikis-index-admin.png)
+
+{:.wiki-index}
+![]({{ site.baseurl }}/img/not-wikipedia/wikis-index-standard-user.png)
+
+{:.wiki-index}
+![]({{ site.baseurl }}/img/not-wikipedia/wikis-index-guest.png)
+
+{:.wiki-index}
+![]({{ site.baseurl }}/img/not-wikipedia/wikis-index-collaborating-on.png)
+
+
+## Browsing Wikis
+All of the wiki pages are accompanied by a collapsible sidebar with options that changing depending on the page. For example, a guest obviously should not have options to see their own wikis because they don’t have any. For a guest, the option to create a new wiki redirects to the login page and is left as an incentive for guests to create an account.  
+
+The wiki index page can be seen in the above five images. The first through third show the wikis listed for an admin, standard user, and guest respectively. Notice that an admin can see more wikis than a standard or guest user. This is due to the scoping policy specified with our old friend Pundit.
+
+Also note that this standard user can see 
+
+The first shows a while the second, third, and fourth images show the view of an example standard user. The wiki pages are accompanied by a collapsible sidebar with options changing depending on the page. For example, a guest obviously should not have options to see their own wikis because they don’t have any. The option to create a new wiki redirects to the login page and is left as an incentive for guests to create an account.  
 
 
 
@@ -120,4 +300,3 @@ I like money, so getting users to upgrade and give me their cash is pretty impor
 
 
 
-</div>
