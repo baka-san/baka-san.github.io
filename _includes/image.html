@@ -1,0 +1,12 @@
+<table class="image-caption-table {{ include.class }}">
+  
+  {% if include.title %}
+    <caption align="top" class="title">{{ include.title }}</caption>
+  {% endif %}
+  
+  <tr><td><img src="{{ include.url }}" alt="{{ include.title }}"/></td></tr>
+  
+  {% if include.description %}
+    <caption align="bottom" class="description">{{ include.description }}</caption>
+  {% endif %}
+</table>

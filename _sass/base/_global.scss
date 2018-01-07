@@ -130,16 +130,34 @@ img[align=right] {
 }
 
 .highlight {
-  margin: 20px 0;
-  // overflow-y: auto;
+  margin: 20px 0;  
+  font-size: 16px;
 
   @media (max-width: $screen-sm) { 
-    font-size: 14px
+    font-size: small;
   }
 
   pre {
     max-height: 400px;
   }
+}
 
+.image-caption-table {
+  overflow: auto;
+  margin-top: 0px;
 
+  .title {
+    padding-bottom: 3px;
+    font-size: larger;
+    font-weight: bold;
+
+  }
+
+  .description {
+    padding-top: 3px;
+  }
+
+  td {
+    padding: 0;
+  }
 }

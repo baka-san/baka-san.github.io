@@ -23,6 +23,7 @@ DATA BACKUP FOR RECOVERY
 
 SEARCH FOR WIKIS RATHER THAN BROWSING
 
+MAKE CONTROLLERS SKINNIER, MODELS FATTER
 
 
 
@@ -90,8 +91,8 @@ In the controller, one must simply pass a wiki and Pundit magically infers `curr
 ...
 {% endhighlight %}
 
+Pundit was also used for scoping and setting the policy for collaborators, both of which will be disussed in later sections.
 
-**The last amazing thing Pundit allows is easy scoping. In `wiki_policy.rb`, admin and premium users were specified to be able to see all wikis while standard users can only see public wikis and wikis which they are collaborating on. Then to use the scope, in the controller, something like `@wikis = policy_scope(Wiki)` can be retrieve the appropriate wikis for the current user. MOVE THIS**
 
 ## Upgrading to Premium
 I like money, so getting users to upgrade and give me their cash is pretty important. A premium user has the ability to both create private wikis and invite “collaborators” to work on their private wikis. Collaborators do not have to be premium users. A private wiki can be made public at any time.
@@ -229,28 +230,98 @@ end
 ...
 {% endhighlight %}
 
-{:.wiki-index}
-![]({{ site.baseurl }}/img/not-wikipedia/wikis-index-admin.png)
-
-{:.wiki-index}
-![]({{ site.baseurl }}/img/not-wikipedia/wikis-index-standard-user.png)
-
-{:.wiki-index}
-![]({{ site.baseurl }}/img/not-wikipedia/wikis-index-guest.png)
-
-{:.wiki-index}
-![]({{ site.baseurl }}/img/not-wikipedia/wikis-index-collaborating-on.png)
-
 
 ## Browsing Wikis
-All of the wiki pages are accompanied by a collapsible sidebar with options that changing depending on the page. For example, a guest obviously should not have options to see their own wikis because they don’t have any. For a guest, the option to create a new wiki redirects to the login page and is left as an incentive for guests to create an account.  
 
-The wiki index page can be seen in the above five images. The first through third show the wikis listed for an admin, standard user, and guest respectively. Notice that an admin can see more wikis than a standard or guest user. This is due to the scoping policy specified with our old friend Pundit.
+{% include image.html url="/img/not-wikipedia/wikis-index-admin.png" title="Fig 1: Admin's Scope" class="wiki-index" %}
 
-Also note that this standard user can see 
+{% include image.html url="/img/not-wikipedia/wikis-index-standard-user.png" title="Fig 2: Some Standard User's Scope" class="wiki-index" %}
 
-The first shows a while the second, third, and fourth images show the view of an example standard user. The wiki pages are accompanied by a collapsible sidebar with options changing depending on the page. For example, a guest obviously should not have options to see their own wikis because they don’t have any. The option to create a new wiki redirects to the login page and is left as an incentive for guests to create an account.  
+{% include image.html url="/img/not-wikipedia/wikis-index-guest.png" title="Fig 3: Guest's Scope" class="wiki-index" %}
 
+{% include image.html url="/img/not-wikipedia/wikis-index-collaborating-on.png" title="Fig 4: Standard User, Collaborating On" class="wiki-index" %}
+
+
+All of the wiki pages are accompanied by a collapsible sidebar with options that change depending on the page and the user's role. For example, a guest obviously should not have options to see their own wikis because they don’t have any. As seen in Figure 3, for a guest, the option to create a new wiki redirects to the login page and is left as an incentive for guests to create an account. Each of the options on the sidebar is tailored to each user and page in such a way. 
+
+The wiki index page can be seen in the above four images, Figures 1-4. Figures 1-3 show all wikis available for an admin, standard user, and guest respectively. Notice that an admin can see more wikis than a standard or guest user. This is due to the scoping policy specified with our old friend Pundit. In the index action of with wikis controller, one can simply call `policy_scope(Wiki)` and an array of all permitted wikis for the current user will be returned. In the policy below, it can be seen that:
+- Admin users can view all wikis.
+- Premium users can view private wikis they own, private wikis they are collaborating on, and public wikis.
+- Standard users can view private wikis they are collaborating on and public wikis.
+- Guests can only view public wikis (lame).
+
+
+{% highlight ruby %}
+# app/policies/wiki_policy.rb
+...
+class Scope < Scope
+
+  attr_reader :user, :scope
+  
+  def initialize(user, scope)
+    @user = user
+    @scope = scope
+  end
+
+  def resolve
+    wikis = []
+
+    if user && user.admin?
+      wikis = scope.all
+
+    elsif user && user.premium?
+      all_wikis = scope.all
+
+      all_wikis.each do |wiki|
+        if wiki.public? || wiki.owner == user || wiki.collaborators.include?(user)
+          wikis << wiki
+        end
+      end
+
+    else
+      all_wikis = scope.all
+
+      all_wikis.each do |wiki|
+        if wiki.public? || wiki.collaborators.include?(user)
+          wikis << wiki
+        end
+      end
+    end
+
+    wikis 
+  end
+end
+...
+{% endhighlight %}
+
+With scoping out of the way, the last concern was displaying the relevant wikis for users and allowing them to filter those wikis. In Figures 1, 2, and 4, it can be seen that a user can choose to see all wikis (those rendered by `policy_scope`), the own wikis they've created, and the private wikis they are collaborating on. Figure 4 displays a screenshot of the wikis a sample standard user is collaborating on. It should be noted that all filtering is done by securly passing a param to the `wiki#index` action, rerendering the view appropriately.
+
+{% highlight ruby %}
+# app/controllers/wikis_controller.rb
+...
+  def index
+    @wikis = policy_scope(Wiki)
+
+    if params[:filter].present?
+      if filter_params[:my_wikis]
+        @index = current_user.wikis 
+        @title = "My Wikis"
+      elsif filter_params[:collaborating]
+        @index = current_user.collaborating 
+        @title = "Collaborating On"
+      end
+
+      @message = @index.empty? ? "None found." : nil 
+    else
+      @index = @wikis 
+      @title = "Wikis"
+    end
+  end
+...
+{% endhighlight %}
+
+
+## Live Editing of Wiki Pages and Adding Collaborators
 
 
 
@@ -279,7 +350,6 @@ The first shows a while the second, third, and fourth images show the view of an
 **Development Tools and Gems include**:
 
 - [Devise](https://github.com/plataformatec/devise) for user authentication
-- [SendGrid](https://sendgrid.com/) for email confirmation
 - [Redcarpet](https://github.com/vmg/redcarpet) for Markdown formatting
 - [Markdown-js](https://github.com/evilstreak/markdown-js) for live Markdown formatting
 - [Pundit](https://github.com/elabs/pundit) for authorization
