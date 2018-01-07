@@ -68,7 +68,13 @@ collections:
 markdown: kramdown
 
 sass:
-  sass_dir: _sass
-  style: :compressed
+  # sass_dir: _sass
+  load_paths:
+      - _sass
+      - node_modules
+  # style: :compressed
 
 gems: [jekyll-paginate]
+
+safe: false
+exclude: []

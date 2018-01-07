@@ -2,10 +2,10 @@
 <html class="no-js">
   {% include head.html %}
   <body>
-    {% include header.html %}
-    <div class="content">
-      {{ content }}
+    <div class="container-fluid">
+      {% include header.html %}
+      <div class="row {{ page.class }}">{{ content }}</div>
+      {% include footer.html %}
     </div>
-    {% include footer.html %}
   </body>
 </html>
