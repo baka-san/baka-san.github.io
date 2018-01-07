@@ -3,21 +3,6 @@ $custom-font-size: 16px;
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
 
-// External
-@import 'external/reset';
-@import 'external/solarized-dark';
 
-// Base
-@import 'base/variables';
-@import 'base/global';
-@import 'base/utility';
-
-// Posts
-@import 'layouts/posts';
-@import 'layouts/index';
-
-// Partials
-@import 'includes/header';
-@import 'includes/footer';
 
 
