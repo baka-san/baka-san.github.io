@@ -118,6 +118,15 @@ img[align=right] {
   margin-left: 3%;
 }
 
+// Inline code styling
+code.highlighter-rouge {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  background-color: #f9f2f4;
+  border-radius: 4px; 
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
 
 .code-full { 
   overflow-x: auto;  
@@ -129,6 +138,7 @@ img[align=right] {
   }
 }
 
+// Code block styling
 .highlight {
   margin: 20px 0;  
   font-size: 16px;
@@ -142,15 +152,17 @@ img[align=right] {
   }
 }
 
+// Image with caption 
 .image-caption-table {
+  display: table;
   overflow: auto;
   margin-top: 0px;
+  width: auto;
 
   .title {
     padding-bottom: 3px;
     font-size: larger;
     font-weight: bold;
-
   }
 
   .description {
@@ -161,3 +173,16 @@ img[align=right] {
     padding: 0;
   }
 }
+
+.image-caption-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image-caption-no-border {
+  * {
+    border: 1px solid white;
+  }
+}
+
+

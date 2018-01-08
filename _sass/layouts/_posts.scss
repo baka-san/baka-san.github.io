@@ -121,4 +121,16 @@ header {
       text-align: left;
     }
   }
+
+  .fig-5-large {
+    @media (max-width: $screen-md) { 
+      display: none;
+    }
+  }
+
+  .fig-5-small {
+    @media (min-width: $screen-md) { 
+      display: none;
+    }
+  }
 }

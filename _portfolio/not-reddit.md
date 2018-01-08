@@ -94,6 +94,7 @@ Additionally, the site could use more robust CSS. As a disclaimer, the site is f
 - Figaro was used to set environmental variables and can be found in `config/application.yml`. For security reasons, this file has been replaced with an example file `config/application.example.yml` on github to demonstrate proper storage of environmental variables.
 
 ### To Run Locally
+- [Visit Not Reddits's GitHub](https://github.com/baka-san/not-reddit)
 - [Clone the repository](https://help.github.com/articles/cloning-a-repository/)
 - Run `bundle install` on command line
 - Create and migrate the SQLite database with `rake db:create` and `rake db:migrate`
