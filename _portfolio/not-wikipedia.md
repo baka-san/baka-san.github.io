@@ -16,9 +16,9 @@ short-description: Like Wikipedia, Only Not
 
 Like Wikipedia, Not Wikipedia is a user-maintained encyclopedia. Anyone can view the information on the site, however, to get involved with creating and maintaining wikis, a user needs to create a free account. From there, a user can upgrade to a paid membership, allowing the creation of private wikis, which can be shared with individuals the user wants to collaborate with.
 
-The app is deployed on Heroku: https://not-wikipedia-heroku.herokuapp.com/
+The app is deployed on [Heroku](https://not-wikipedia-heroku.herokuapp.com/)
 
-The source code is available at GitHub: https://github.com/baka-san/not-wikipedia
+The source code is available at [GitHub](https://github.com/baka-san/not-wikipedia)
 
 ### Features
 - Anyone can view public wikis by browsing the site.
@@ -538,7 +538,7 @@ While Not Wikipedia employs a lot of great code, there was still so much I wante
 
 8\. Ability to change your credit card.
 
-Thanks for reading and please check out the other posts on my site. If you have any remarks sent me a message or comment below. If you are looking to employ me or in some other way give me your money, you can contact me through any of the methods listed on the top of the [home page]({{ site.baseurl }}/). Cheers.
+Thanks for reading and please check out the other posts on my site. If you have any remarks send me a message or comment below. If you are looking to employ me or in some other way give me your money, you can contact me through any of the methods listed on the top of the [home page]({{ site.baseurl }}/). Cheers.
 
 ## Setup and Configuration
 
