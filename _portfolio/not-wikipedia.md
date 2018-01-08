@@ -17,13 +17,19 @@ MORE TESTING
 
 BETTER USER INTERFACE SUCH AS CONFIRMATIONS WHEN DATA IS ENTERED OR BEFORE YOU DELETE YOURSELF
 
-BETTER PERMISSIONS, E.G. NO DELETING OTHER PEOPLE'S POSTS, ONLY OWNERS OF POSTS CAN MAKE IT PRIVATE, APPROVAL OF EDITS FROM OWNER, ETC
+BETTER PERMISSIONS, E.G. NO DELETING OTHER PEOPLE'S POSTS, ONLY OWNERS OF POSTS CAN MAKE IT PUBLIC, APPROVAL OF EDITS FROM OWNER, CHOOSE IF YOUR COLLABORATORS CAN ADD OR DELETE COLLABORATORS, ETC
 
 DATA BACKUP FOR RECOVERY
 
 SEARCH FOR WIKIS RATHER THAN BROWSING
 
 MAKE CONTROLLERS SKINNIER, MODELS FATTER
+
+STYLE USER PAGES
+
+ADD ABILITY TO CHANGE CREDIT CARD
+
+CUSTOMIZED EMAILS
 
 
 
@@ -321,15 +327,50 @@ With scoping out of the way, the last concern was displaying the relevant wikis 
 {% endhighlight %}
 
 
-## Live Editing of Wiki Pages and Adding Collaborators
+## Live Editing of Wiki Pages
 
 {% include image.html url="/img/not-wikipedia/wiki-edit-live-preview.gif" title="Fig 5: Admin's Scope" class="" %}
 
+{% include image.html url="/img/not-wikipedia/wiki-edit-live-preview-mobile-edit.gif" title="Fig 5: Admin's Scope" class="" %}
+
+{% include image.html url="/img/not-wikipedia/wiki-edit-live-preview-mobile-preview.gif" class="" %}
+
+In the `wiki#show` view, makdown is rendered through [Redcarpet](https://github.com/vmg/redcarpet), Markdown parser for Ruby. Since the show view is static - no data is changing - this option works great. The wiki's body is grabbed and passed through the Redcarpet, yielding beautiful markdown language. The problem is, in the `wiki#new` and 'wiki#edit' views, the user enters and deletes data, but those changes are not reflected in ActiveRecord until the save button is pushed. So, a more dynamic Markdown parser was needed. Enter [Markdown-js](https://github.com/evilstreak/markdown-js), a Markdown parser for JavaScript. Using JavaScript, elements on the page can be grabbed and monitored for changes, regardless if ActiveRecord has been updated or not. The JavaScript code below watches the user input in the edit section, grabs that input on every keystroke, passes it to Markdown-js, and then takes that Markdown and attaches it to the live preview section. Also note the that the code below is wrapped in a try statement in order to stop the browser from throwing any unexpected errors.
+
+{% highlight javascript %}
+# app/assets/javascripts/wiki.js
+...
+  var wikiTitle = document.getElementById("wiki_title");
+  var wikiBody = document.getElementById("wiki_body");
+  var titlePreview = document.getElementById('live_title_preview')
+  var bodyPreview = document.getElementById('live_body_preview')
+
+  if (bodyPreview || titlePreview) {
+    titlePreview.innerHTML = markdown.toHTML(wikiTitle.value);
+    bodyPreview.innerHTML = markdown.toHTML(wikiBody.value);
+
+    try{
+        wikiTitle.onkeyup = wikiTitle.onkeypress = function(){
+            titlePreview.innerHTML = markdown.toHTML(this.value);
+        }
+        wikiBody.onkeyup = wikiBody.onkeypress = function(){
+            bodyPreview.innerHTML = markdown.toHTML(this.value);
+        }
+    }
+  }
+...
+{% endhighlight %}
 
 
+## Adding Collaborators
+
+{% include image.html url="/img/not-wikipedia/collaborators.gif" title="Fig 6: Managing Collaborators" class="" %}
+
+The last major aspect of the site is adding collaborators to private wiki pages.
 
 
-
+## Other Pages
+Due to how long this post is already, I'll briefly describe the other, less interesting, pages on the site. Each user has a profile......
 
 
 
@@ -364,6 +405,4 @@ With scoping out of the way, the last concern was displaying the relevant wikis 
 - Create and migrate the SQLite database with `rake db:create` and `rake db:migrate`
 - Start the server using `rails server`
 - Run the app on `localhost:3000`
-
-
 
