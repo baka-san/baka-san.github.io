@@ -16,9 +16,9 @@ short-description: Like Wikipedia, Only Not
 
 Like Wikipedia, Not Wikipedia is a user-maintained encyclopedia. Anyone can view the information on the site, however, to get involved with creating and maintaining wikis, a user needs to create a free account. From there, a user can upgrade to a paid membership, allowing the creation of private wikis, which can be shared with individuals the user wants to collaborate with.
 
-The app is deployed on [Heroku](https://not-wikipedia-heroku.herokuapp.com/)
+The app is deployed on [Heroku](https://not-wikipedia-heroku.herokuapp.com/).
 
-The source code is available at [GitHub](https://github.com/baka-san/not-wikipedia)
+The source code is available at [GitHub](https://github.com/baka-san/not-wikipedia).
 
 ### Features
 - Anyone can view public wikis by browsing the site.
@@ -277,7 +277,7 @@ end
 ...
 {% endhighlight %}
 
-With scoping out of the way, the last concern was displaying the relevant wikis for users and allowing them to filter those wikis. In Figures 1, 2, and 4, it can be seen that a user can choose to see all wikis (those rendered by `policy_scope`), the own wikis they've created, and the private wikis they are collaborating on. Figure 4 displays a screenshot of the wikis a sample standard user is collaborating on. It should be noted that all filtering is done by securely passing a param to the `wiki#index` action, re-rendering the view appropriately.
+With scoping out of the way, the last concern was displaying the relevant wikis for users and allowing them to filter those wikis. In Figures 1, 2, and 4 it can be seen that a user can choose to see all wikis (those rendered by `policy_scope`), the own wikis they've created, and the private wikis they are collaborating on. Figure 4 displays a screenshot of the wikis a sample standard user is collaborating on. It should be noted that all filtering is done by securely passing a param to the `wiki#index` action, re-rendering the view appropriately.
 
 {% highlight ruby %}
 # app/controllers/wikis_controller.rb
@@ -312,7 +312,7 @@ With scoping out of the way, the last concern was displaying the relevant wikis 
 
 {% include image.html url="/img/not-wikipedia/live-preview-3.gif" class="fig-5-small image-caption-center image-caption-no-border" %}
 
-In the `wiki#show` view, makdown is rendered through [Redcarpet](https://github.com/vmg/redcarpet), Markdown parser for Ruby. Since the show view is static - no data is changing - this option works great. The wiki's body is grabbed and passed through the Redcarpet, yielding beautiful markdown language. The problem is, in the `wiki#new` and 'wiki#edit' views, the user enters and deletes data, but those changes are not reflected in ActiveRecord until the save button is pushed. So, a more dynamic Markdown parser was needed. Enter [Markdown-js](https://github.com/evilstreak/markdown-js), a Markdown parser for JavaScript. Using JavaScript, elements on the page can be grabbed and monitored for changes, regardless if ActiveRecord has been updated or not. The JavaScript code below watches the user input in the edit section, grabs that input on every keystroke, passes it to Markdown-js, and then takes that Markdown and attaches it to the live preview section. Also note the that the code below is wrapped in a try statement in order to stop the browser from throwing any unexpected errors.
+In the `wiki#show` view, makdown is rendered through [Redcarpet](https://github.com/vmg/redcarpet), Markdown parser for Ruby. Since the show view is static - no data is changing - this option works great. The wiki's body is grabbed and passed through the Redcarpet, yielding beautiful markdown language. The problem is, in the `wiki#new` and `wiki#edit` views, the user enters and deletes data, but those changes are not reflected in ActiveRecord until the save button is pushed. So, a more dynamic Markdown parser was needed. Enter [Markdown-js](https://github.com/evilstreak/markdown-js), a Markdown parser for JavaScript. Using JavaScript, elements on the page can be grabbed and monitored for changes, regardless if ActiveRecord has been updated or not. The JavaScript code below watches the user input in the edit section, grabs that input on every keystroke, passes it to Markdown-js, and then takes that Markdown and attaches it to the live preview section. Also note the that the code below is wrapped in a try statement in order to stop the browser from throwing any unexpected errors.
 
 {% highlight javascript %}
 # app/assets/javascripts/wiki.js
@@ -536,7 +536,7 @@ While Not Wikipedia employs a lot of great code, there was still so much I wante
 
 7\. Better permissions, e.g. no deleting other people's wiki pages, only owners of a page can make it public, choose if your collaborators can add or delete other collaborators, approval from owner before edits are added to the page, etc.
 
-8\. Ability to change your credit card.
+8\. Allow users to change their credit card. Since Not Wikipedia doesn't store any information in the database, this would involve creating an ActiveRecord model for credit cards and associating it with the users model. Of course, full credit card numbers and sensitive information wouldn't be stored in ActiveRecord.
 
 Thanks for reading and please check out the other posts on my site. If you have any remarks send me a message or comment below. If you are looking to employ me or in some other way give me your money, you can contact me through any of the methods listed on the top of the [home page]({{ site.baseurl }}/). Cheers.
 
