@@ -524,11 +524,11 @@ While Not Wikipedia employs a lot of great code, there was still so much I wante
 
 1\. More testing. While testing was done - extensively for Pundit - more could always be added.
 
-2\. Skinner controllers, fatter models. There were a few times I definitely could have made some methods in the model and removed it from the controller.
+2\. Skinnier controllers, fatter models. There were a few times I definitely could have made some methods in the model and removed it from the controller.
 
 3\. Better error messages and redirects for Pundit.
 
-4\. Better styling. I mean, some jazz would be nice.
+4\. Better styling. The layout is a little dull.
 
 5\. A search bar for wikis rather than just browsing. Completely unscalable.
 
