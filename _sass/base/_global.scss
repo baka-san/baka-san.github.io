@@ -188,30 +188,66 @@ code.highlighter-rouge {
 
 // Style modal
 .modal {
-  .close {
-    width: fit-content;
-  }
+  
+  .modal-content {
+    background-color: #002b36;
 
-  .modal-header {
-    padding: 0;
-  }
+    .modal-header.code {
+      padding: 0px;
+      border-bottom: 1px solid #586e75;
 
-  .modal-header.code {
-    background-color: #003039;
-    border-bottom: 1px solid #586e75;
-
-    .modal-title {
-      color: #586e75;
+      .modal-title {
+        padding: 16px;
+        color: #586e75;
+      }
     }
-  }
 
-  .modal-body.code {
-    padding: 0;
-
-    * {
+    .close {
+      width: fit-content;
       margin-top: 0;
-      margin-bottom: 0;
+      margin-right: 0;
+      padding: 3px 8px 16px 17px;
+
+      .fa-times {
+        color: #dc322f
+      }
+      
     }
+
+    .modal-body.code {
+      border: 1px solid rgba(0,0,1,.2);
+      padding: 0;
+
+      * {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      pre {
+        overflow-x: auto;
+        overflow-y: auto;
+      }
+    }
+
+    .modal-body {
+    }
+
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
   }
+
 }
 

@@ -11,20 +11,21 @@
         <div class="modal-header {{ include.type }}">
           <h5 class="modal-title" id="{{ include.title }}">{{ include.title }}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <i class="fa fa-times" aria-hidden="true"></i>
           </button>
         </div>
-
-      <!-- Body section -->
       {% else %}
-        <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="fa fa-times" aria-hidden="true"></i>
         </button>
       {% endif %}
+
+      <!-- Body section -->
+
       <div class="modal-body {{ include.type }}">
 
         <!-- Handle code -->
-        <!-- I hate that I can't do highlight {{language}}... -->
+        <!-- I hate that I can't do { highlight {{language}} }... -->
         {% if include.type == "code" %}
           {% case include.language %}
 
