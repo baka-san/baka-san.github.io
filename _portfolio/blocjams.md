@@ -22,6 +22,23 @@ BlocJams was the first project of Bloc's [Web Development Program](https://www.b
 
 {% include image.html url="/img/blocjams/.png" title="Fig 2: " class="" %}
 
+{% include modal.html id="1" type="code" link-text="link 1" title="app/services/subscriptions_service.rb" language="ruby" file="code/not-wikipedia/subscriptions_service.rb" %}
+
+{% include modal.html id="2" type="code" link-text="link 2" title="app/services/subscriptions_service.rb" language="ruby" 
+body="
+# Comment
+  require 'stripe'
+
+  class SubscriptionsService
+
+    def initialize(params, user)
+      @user = user
+      @email = params[:stripeEmail]
+      @token = params[:stripeToken]
+    end"
+%}
+
+
 Users are greeted by BlocJams' stylish landing page. As seen in Figure 1, there are three elements which come into view as the user scrolls down the page. This effect was achieved using css transforms and transitions[??]. The elements are initially not visible due to the opacity being set to zero. The window is watched and when the user has scrolled far enough down the page (see Figure 2), a jQuery function called animatePoints[??] is called, changing the opacity to 1 and animating the elements.
 
 

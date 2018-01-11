@@ -405,8 +405,9 @@ As seen in Figure 6, collaborators can be added via email and deleted with a but
     respond_to do |format|
       format.js do
         
+        @email = collaboration_params[:email].downcase!
         @wiki = Wiki.find(collaboration_params[:wiki_id])
-        @collaborator = User.find_by(email: collaboration_params[:email])
+        @collaborator = User.find_by(email: @email)
 
         # Collaborator exists
         if @collaborator && @collaborator.collaborating_on?(@wiki)
@@ -430,6 +431,7 @@ As seen in Figure 6, collaborators can be added via email and deleted with a but
       end
     end
   end
+
 ...
 {% endhighlight %}
 

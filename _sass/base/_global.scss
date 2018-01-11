@@ -186,3 +186,32 @@ code.highlighter-rouge {
 }
 
 
+// Style modal
+.modal {
+  .close {
+    width: fit-content;
+  }
+
+  .modal-header {
+    padding: 0;
+  }
+
+  .modal-header.code {
+    background-color: #003039;
+    border-bottom: 1px solid #586e75;
+
+    .modal-title {
+      color: #586e75;
+    }
+  }
+
+  .modal-body.code {
+    padding: 0;
+
+    * {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+}
+

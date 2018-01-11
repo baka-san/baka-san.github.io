@@ -1,0 +1,81 @@
+<!-- Text Toggle-->
+<a href="#" data-toggle="modal" data-target="#modal_target_{{ include.id }}">{{ include.link-text }}</a>
+
+<!-- Modal -->
+<div class="modal fade" id="modal_target_{{ include.id }}" tabindex="-1" role="dialog" aria-labelledby="{{ include.title }}" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      
+      <!-- Title section -->
+      {% if include.title %}
+        <div class="modal-header {{ include.type }}">
+          <h5 class="modal-title" id="{{ include.title }}">{{ include.title }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+      <!-- Body section -->
+      {% else %}
+        <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      {% endif %}
+      <div class="modal-body {{ include.type }}">
+
+        <!-- Handle code -->
+        <!-- I hate that I can't do highlight {{language}}... -->
+        {% if include.type == "code" %}
+          {% case include.language %}
+
+            {% when "ruby" %}
+              {% if include.file %}
+                {% highlight ruby %}{% include {{ include.file }} %}{% endhighlight %}
+              {% else %}
+                {% highlight ruby %}{{ include.body }}{% endhighlight %}
+              {% endif %}     
+
+            {% when "javascript" %}
+              {% if include.file %}
+                {% highlight javascript %}{% include {{ include.file }} %}{% endhighlight %}
+              {% else %}
+                {% highlight javascript %}{{ include.body }}{% endhighlight %}
+              {% endif %}
+
+            {% when "html" %}
+              {% if include.file %}
+                {% highlight html %}{% include {{ include.file }} %}{% endhighlight %}
+              {% else %}
+                {% highlight html %}{{ include.body }}{% endhighlight %}
+              {% endif %}
+
+            {% when "css" %}
+              {% if include.file %}
+                {% highlight css %}{% include {{ include.file }} %}{% endhighlight %}
+              {% else %}
+                {% highlight css %}{{ include.body }}{% endhighlight %}
+              {% endif %}
+          {% endcase %}
+
+        <!-- Just normal text -->
+        {% else %}
+          {{ include.body }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PARAMETERS
+  OPTIONS:
+    REQUIRED:
+      id (must be different for each modal)
+      link_text
+      body or file
+
+    OPTIONAL:
+      title
+      type
+        ".code"
+          language
+ -->
