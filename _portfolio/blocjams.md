@@ -16,9 +16,12 @@ BlocJams was the first project of Bloc's [Web Development Program](https://www.b
 ## JavaScript and jQuery
 
 ### Landing Page
-{% include figure-left.html url="/img/blocjams/landing-animation.gif" title="Fig 1: Animated Content" class="" %}
 
 {% include figure-left.html url="/img/blocjams/landing-scroll-event.jpg" title="Fig 2: " class="" %}
+
+
+{% include figure-left.html url="/img/blocjams/landing-animation.gif" title="Fig 1: Animated Content" class="" %}
+
 
 {% include modal.html id="1" type="code" link-text="link 1" title="app/services/subscriptions_service.rb" language="ruby" file="code/not-wikipedia/subscriptions_service.rb" %}
 

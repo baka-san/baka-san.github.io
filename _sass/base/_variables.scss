@@ -1,7 +1,8 @@
 // Typography
 $font-family-main: 'Lato', Helvetica, Arial, sans-serif;
 $font-family-headings: 'Abril Fatface', Georgia, serif, cursive;
-$font-size: 1.25em;
+$font-size: calc(1.0em + 0.25vw) !important;
+
 
 // Padding
 $padding-large: 20%;
