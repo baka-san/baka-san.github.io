@@ -216,13 +216,13 @@ end
 
 ## Browsing Wikis
 
-{% include image.html url="/img/not-wikipedia/wikis-index-admin.png" title="Fig 1: Admin's Scope" class="wiki-index" %}
+{% include figure-left.html url="/img/not-wikipedia/wikis-index-admin.png" title="Fig 1: Admin's Scope" class="wiki-index" %}
 
-{% include image.html url="/img/not-wikipedia/wikis-index-standard-user.png" title="Fig 2: Some Standard User's Scope" class="wiki-index" %}
+{% include figure-left.html url="/img/not-wikipedia/wikis-index-standard-user.png" title="Fig 2: Some Standard User's Scope" class="wiki-index" %}
 
-{% include image.html url="/img/not-wikipedia/wikis-index-guest.png" title="Fig 3: Guest's Scope" class="wiki-index" %}
+{% include figure-left.html url="/img/not-wikipedia/wikis-index-guest.png" title="Fig 3: Guest's Scope" class="wiki-index" %}
 
-{% include image.html url="/img/not-wikipedia/wikis-index-collaborating-on.png" title="Fig 4: Standard User, Collaborating On" class="wiki-index" %}
+{% include figure-left.html url="/img/not-wikipedia/wikis-index-collaborating-on.png" title="Fig 4: Standard User, Collaborating On" class="wiki-index" %}
 
 
 All of the wiki pages are accompanied by a collapsible sidebar with options that change depending on the page and the user's role. For example, a guest obviously should not have options to see their own wikis because they don’t have any. As seen in Figure 3, for a guest, the option to create a new wiki redirects to the login page and is left as an incentive for guests to create an account. Each of the options on the sidebar is tailored to each user and page in such a way.
@@ -306,11 +306,11 @@ With scoping out of the way, the last concern was displaying the relevant wikis 
 
 ## Live Editing of Wiki Pages
 
-{% include image.html url="/img/not-wikipedia/live-preview-1.gif" title="Fig 5: Wiki Edit View" class="fig-5-large" %}
+{% include figure-left.html url="/img/not-wikipedia/live-preview-1.gif" title="Fig 5: Wiki Edit View" class="fig-5-large" %}
 
-{% include image.html url="/img/not-wikipedia/live-preview-2.gif" title="Fig 5: Wiki Edit View" class="fig-5-small image-caption-center image-caption-no-border" %}
+{% include figure-left.html url="/img/not-wikipedia/live-preview-2.gif" title="Fig 5: Wiki Edit View" class="fig-5-small" %}
 
-{% include image.html url="/img/not-wikipedia/live-preview-3.gif" class="fig-5-small image-caption-center image-caption-no-border" %}
+{% include figure-left.html url="/img/not-wikipedia/live-preview-3.gif" class="fig-5-small  " %}
 
 In the `wiki#show` view, makdown is rendered through [Redcarpet](https://github.com/vmg/redcarpet), Markdown parser for Ruby. Since the show view is static - no data is changing - this option works great. The wiki's body is grabbed and passed through the Redcarpet, yielding beautiful markdown language. The problem is, in the `wiki#new` and `wiki#edit` views, the user enters and deletes data, but those changes are not reflected in ActiveRecord until the save button is pushed. So, a more dynamic Markdown parser was needed. Enter [Markdown-js](https://github.com/evilstreak/markdown-js), a Markdown parser for JavaScript. Using JavaScript, elements on the page can be grabbed and monitored for changes, regardless if ActiveRecord has been updated or not. The JavaScript code below watches the user input in the edit section, grabs that input on every keystroke, passes it to Markdown-js, and then takes that Markdown and attaches it to the live preview section. Also note the that the code below is wrapped in a try statement in order to stop the browser from throwing any unexpected errors.
 
@@ -374,7 +374,7 @@ Scrapping the naming convention described above, I decided the best name for the
 A final thing worth mentioning is that custom names were specified using the [source](https://stackoverflow.com/questions/4632408/understanding-source-option-of-has-one-has-many-through-of-rails) option. "Collaborating" was chosen instead of "wikis" (which would have resulted in conflicted naming) and "collaborators" was chosen instead of "users" for the **has many through** relationships. These **has many through** relationships were put to good use many times throughout the site, DRYing up a lot of code. For example, when filtering wikis, like in Figures 1-4, the wikis `current_user` is collaborating on can be retrieved with `current_user.collaborating`. Likewise, in Figure 6, the collaborators of a given wiki called `wiki` can be retrieved with `wiki.collaborators`.
 
 
-{% include image.html url="/img/not-wikipedia/collaborators.gif" title="Fig 6: Managing Collaborators" class="" %}
+{% include figure-left.html url="/img/not-wikipedia/collaborators.gif" title="Fig 6: Managing Collaborators" class="" %}
 
 As seen in Figure 6, collaborators can be added via email and deleted with a button click. Creation and deletion of a collaborator each require a separate request to the collaborations controller and thus a page reload. I didn't like the idea of a user having to reload the page every time they added or removed a user, so I decided to make the [request with AJAX](http://railscasts.com/episodes/136-jquery-ajax-revised). The flow is as follows:
 

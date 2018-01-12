@@ -140,7 +140,7 @@ code.highlighter-rouge {
 
 // Code block styling
 .highlight {
-  margin: 20px 0;  
+  margin: 0 0 16px 0;  
   font-size: 16px;
 
   @media (max-width: $screen-sm) { 
@@ -149,39 +149,25 @@ code.highlighter-rouge {
 
   pre {
     max-height: 400px;
+    margin: 0;
   }
 }
 
 // Image with caption 
-.image-caption-table {
-  display: table;
-  overflow: auto;
-  margin-top: 0px;
-  width: auto;
-
+.custom-figure {
   .title {
-    padding-bottom: 3px;
+    // padding-bottom: 3px;
+    color: black;
+    text-align: left;
     font-size: larger;
     font-weight: bold;
   }
 
   .description {
-    padding-top: 3px;
-  }
-
-  td {
-    padding: 0;
-  }
-}
-
-.image-caption-center {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.image-caption-no-border {
-  * {
-    border: 1px solid white;
+    // padding-top: 3px;
+    text-align: left;
+    font-size: larger;
+    font-weight: italic;
   }
 }
 

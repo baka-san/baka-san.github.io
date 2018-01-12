@@ -1,20 +1,5 @@
 article,
 .comments {
-
-  @media (max-width: $screen-md) { 
-    padding:0 20px 0;
-  }
-
-  @media (min-width: $screen-md) and (max-width: $screen-lg){ 
-    padding:0 5% 0;
-  }
-
-  padding:0 10% 0;
-
-
-
-  float: left;
-  width: 100%;
 }
 
 article {
@@ -109,12 +94,12 @@ header {
 
 .not-wikipedia {
 
-  @media (min-width: $screen-md) { 
-    .wiki-index {
-      display: inline-block;
-      max-width: 49%; 
-    }
-  }
+  // @media (min-width: $screen-md) { 
+  //   .wiki-index {
+  //     display: inline-block;
+  //     max-width: 49%; 
+  //   }
+  // }
 
   .image-caption-table {
     .title {

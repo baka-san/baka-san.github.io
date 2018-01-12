@@ -1,0 +1,14 @@
+<figure class="custom-figure {{ include.class }}">
+  <!-- Title -->
+  {% if include.title %}
+    <figcaption align="top" class="title figure-caption">{{ include.title }}</figcaption>
+  {% endif %}
+
+  <!-- Image -->
+  <img class="figure-img img-fluid" src="{{ include.url }}" alt="{{ include.title }}"/>
+
+  <!-- Footer -->
+  {% if include.description %}
+    <figcaption align="bottom" class="description figure-caption">{{ include.description }}</figcaption>
+  {% endif %}
+</figure>

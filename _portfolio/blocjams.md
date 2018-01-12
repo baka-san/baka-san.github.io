@@ -2,40 +2,28 @@
 layout: post
 class: blocjams
 title: BlocJams
-thumbnail-path: "img/blocjams.png"
+thumbnail-path: "img/blocjams/blocjams.gif"
 short-description: BlocJams is a Spotify-esque music streaming service, allowing users to listen to all of their favorite albums at the click of a button.
 ---
 
 
 {:.center}
-![]({{ site.baseurl }}/img/blocflix.png)
+![]({{ site.baseurl }}/img/blocjams/blocjams.png)
 
 ## Overview
-BlocJams was the first project of Bloc's [Web Development Program](https://www.bloc.io/web-developer-track/syllabus?mkt_tok=eyJpIjoiTjJVeVpXUmlaVGs0WmpFeCIsInQiOiJlVmtWQlRcL202STlXQUVSaVpmWnUrTEo0amJXMmhEZ1wvTE5LYUtmVHBycUY4blhrKzZtMWlTNGZJa2pocDAwb2xsMWE1cUU5eTFxWDZES3pJQWFqS0p1SXMzYTcxcnJic0ZNZnpaSGRVNDhpNExjaUZuYms1ZDloMXZ6OUxzQ1hzIn0%3D). Before starting this project, I spent a good month studying basic JavaScript - variables, arrays, loops, functions, conditionals, and everything else. BlocJams gave me the perfect opportunity to put all of this knowledge to use. Essentially, BlocJams is a Spotify-esque music streaming service, allowing users to listen to all of their favorite albums at the click of a button. The code was initially written with JavaScript, which was then rewritten in jQuery. After that, I scrapped all of my precious code again and rewrote the site using Angular. This post will discuss the site page by page, first focusing on the jQuery version of the site and then after discussing the Angular version. The JavaScript source code can be found [here](), though conceptually the code is virtually the same, so it will not be included in this post. 
-
-[??] have a target passed in. clicking the funciton loads it into the code area and changes the code to visible. Pushing the x hides the code and the element. Clicking new code clears the old code and loads in this code. Or just do a modal.
+BlocJams was the first project of Bloc's [Web Development Program](https://www.bloc.io/web-developer-track/syllabus?mkt_tok=eyJpIjoiTjJVeVpXUmlaVGs0WmpFeCIsInQiOiJlVmtWQlRcL202STlXQUVSaVpmWnUrTEo0amJXMmhEZ1wvTE5LYUtmVHBycUY4blhrKzZtMWlTNGZJa2pocDAwb2xsMWE1cUU5eTFxWDZES3pJQWFqS0p1SXMzYTcxcnJic0ZNZnpaSGRVNDhpNExjaUZuYms1ZDloMXZ6OUxzQ1hzIn0%3D). Before starting this project, I spent a good month studying basic JavaScript - variables, arrays, loops, functions, conditionals, and everything else. BlocJams gave me the perfect opportunity to put all of this knowledge to use. BlocJams is a Spotify-esque music streaming service, allowing users to listen to all of their favorite albums at the click of a button. The code was initially written with JavaScript, which was then rewritten in jQuery. After that, I scrapped all of my precious code again and rewrote the site using Angular. This post will discuss the site page by page, first focusing on the jQuery version of the site and then discussing the Angular version after. The JavaScript source code can be found [here](https://github.com/baka-san/bloc-jams/tree/checkpoint-15-html-css), though conceptually the code is virtually the same, so it will not be included in this post. 
 
 ## JavaScript and jQuery
 
 ### Landing Page
-{% include image.html url="/img/blocjams/.png" title="Fig 1: " class="" %}
+{% include figure-left.html url="/img/blocjams/landing-animation.gif" title="Fig 1: Animated Content" class="" %}
 
-{% include image.html url="/img/blocjams/.png" title="Fig 2: " class="" %}
+{% include figure-left.html url="/img/blocjams/landing-scroll-event.jpg" title="Fig 2: " class="" %}
 
 {% include modal.html id="1" type="code" link-text="link 1" title="app/services/subscriptions_service.rb" language="ruby" file="code/not-wikipedia/subscriptions_service.rb" %}
 
 {% include modal.html id="2" type="code" link-text="link 2" title="app/services/subscriptions_service.rb" language="ruby" 
-body="
-# Comment
-  require 'stripe'
-
-  class SubscriptionsService
-
-    def initialize(params, user)
-      @user = user
-      @email = params[:stripeEmail]
-      @token = params[:stripeToken]
-    end"
+body=""
 %}
 
 
@@ -43,7 +31,7 @@ Users are greeted by BlocJams' stylish landing page. As seen in Figure 1, there 
 
 
 ### Music Library
-{% include image.html url="/img/blocjams/.png" title="Fig 3: " class="" %}
+{% include figure-left.html url="/img/blocjams/.png" title="Fig 3: " class="" %}
 
 The music library isn't anything special in it's current form. The idea is that that users would see their music and be able to filter by options such as artist, album, and song title. There would also be an option to upload or sync music. As this project is focused more on the aspect of playing music and using jQuery to animate the playbar, this aspect was left out. Instead, a default album called *The Colors* is tiled repeatedly using jQuery to fill up the library.
 
