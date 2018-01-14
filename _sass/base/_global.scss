@@ -50,6 +50,7 @@ h1 {
 h2 {
   font-size: calc(1.5em + 1.0vw) !important;
   font-weight: 500 !important;
+  margin-bottom: 1rem;
 }
 
 h3 {
@@ -254,6 +255,12 @@ code.highlighter-rouge {
     -webkit-hyphens: auto;
     hyphens: auto;
   }
+}
 
+
+.modal-anchor {
+  white-space: pre;
+  color: #dc322f;
+  font-weight: bold;
 }
 
