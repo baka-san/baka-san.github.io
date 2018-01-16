@@ -100,7 +100,7 @@ dt {
   font-weight: bold;
 }
 dd {
-    margin-left: 2em;
+  margin-left: 2em;
 }
 p, ol, ul, dl, .math-display {
   line-height: 1.5;
@@ -111,7 +111,8 @@ p, ol, ul, dl, .math-display {
   width: 100%;
 }
 ol, ul {
-  list-style-position: inside;
+  // list-style-position: inside;
+  margin-left: 20px; 
 }
 hr {
   border: 0;
@@ -194,6 +195,13 @@ code.highlighter-rouge {
 
 
 // Style modal
+.modal-anchor {
+  white-space: pre;
+  color: #dc322f;
+  font-weight: bold;
+  text-decoration: none !important;
+}
+
 .modal {
   
   .modal-content {
@@ -258,9 +266,5 @@ code.highlighter-rouge {
 }
 
 
-.modal-anchor {
-  white-space: pre;
-  color: #dc322f;
-  font-weight: bold;
-}
+
 

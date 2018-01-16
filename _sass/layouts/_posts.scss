@@ -32,25 +32,25 @@ header {
     text-transform: uppercase;
   }
 }
-.feature-image {
-  padding: 0%;
-  .post-link {
-    color: $feature-image-text-color;
-  }
-  header {
-    color: $feature-image-text-color;
-    background-size: $feature-image-size;
-    background-position:center center;
-    margin-bottom: 0;
-    padding: $padding-large/2.8 $padding-large;
-    .meta {
-      color: rgba($feature-image-text-color, .7);
-    }
-  }
-  .post-content {
-    @extend %padding-regular;
-  }
-}
+// .feature-image {
+//   padding: 0%;
+//   .post-link {
+//     color: $feature-image-text-color;
+//   }
+//   header {
+//     color: $feature-image-text-color;
+//     background-size: $feature-image-size;
+//     background-position:center center;
+//     margin-bottom: 0;
+//     padding: $padding-large/2.8 $padding-large;
+//     .meta {
+//       color: rgba($feature-image-text-color, .7);
+//     }
+//   }
+//   .post-content {
+//     @extend %padding-regular;
+//   }
+// }
 
 .post-content {
   
@@ -93,12 +93,24 @@ header {
 
 // Modals: move p's to next line
 // Also move p's inside ul's to the same line
+
 .post-content {
-  p {
+
+  .before-modal { 
+    // display: initial;
+  }
+
+  .modal {
+    // display: initial;
+  }
+
+  .modal-inline {
     display: initial;
+    position: relative;
   }
 
   .modal + p {
+    display: initial;
     margin-left: -5px;
   }
 }
@@ -130,6 +142,10 @@ header {
 
   .landing-animation {
     max-width: 795px;
+  }
+
+  .album-on-hover {
+    margin-left: 20px;
   }
 }
 

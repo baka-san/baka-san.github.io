@@ -8,8 +8,9 @@ thumbnail-path: "img/not-wikipedia/not-wikipedia-thumb.gif"
 short-description: Like Wikipedia, Only Not
 ---
 
-{:.center}
-![]({{ site.baseurl }}/img/not-wikipedia/not-wikipedia.gif)
+
+{% include figure-center.html url="/img/not-wikipedia/not-wikipedia.gif" title="" class="" %}
+
 
 
 ## Overview
