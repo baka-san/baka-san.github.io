@@ -200,6 +200,7 @@ code.highlighter-rouge {
   color: #dc322f;
   font-weight: bold;
   text-decoration: none !important;
+  outline: none !important;
 }
 
 .modal {
@@ -222,6 +223,7 @@ code.highlighter-rouge {
       margin-top: 0;
       margin-right: 0;
       padding: 3px 8px 16px 17px;
+      outline: none !important;
 
       .fa-times {
         color: #dc322f

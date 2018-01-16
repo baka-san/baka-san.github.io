@@ -144,8 +144,12 @@ header {
     max-width: 795px;
   }
 
-  .album-on-hover {
+  .indent-item-in-list {
     margin-left: 20px;
+  }
+
+  img {
+    min-width: 500px;
   }
 }
 
