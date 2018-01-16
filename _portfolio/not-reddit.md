@@ -75,7 +75,10 @@ While simple, Not Reddit securely and robustly allows users to interact via post
 Additionally, the site could use more robust CSS. As a disclaimer, the site is fully responsive and looks acceptable on any device, whether smartphone or computer. That being said, sometimes when the window is resized, the layout is subpar. Certain elements could be tweaked in size and position to give a more aesthetic feel. However, the focus of this project was more on backend and the styling remained quite basic.
 
 
-### Setup and Configuration
+## Setup and Configuration
+
+**Not Reddit**: [GitHub](https://github.com/baka-san/not-reddit) / [Live Site](https://not-reddit-heroku.herokuapp.com/)
+
 **Languages and Frameworks:**
 - Ruby 2.4.0
 - Rails 5.1.3

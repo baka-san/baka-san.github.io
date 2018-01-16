@@ -545,6 +545,8 @@ Thanks for reading and please check out the other posts on my site. If you have 
 
 ## Setup and Configuration
 
+**Not Wikipedia**: [GitHub](https://github.com/baka-san/not-wikipedia) / [Live Site](https://not-wikipedia-heroku.herokuapp.com/)
+
 **Languages and Frameworks**: Ruby on Rails and Bootstrap
 
 **Ruby version 2.4.0**
