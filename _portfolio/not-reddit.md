@@ -6,16 +6,12 @@ thumbnail-path: "img/not-reddit/home1.png"
 short-description: A place where you can share links and discuss rad topics with neckbeards.
 ---
 
-
-{:.center}
-![]({{ site.baseurl }}/img/not-reddit/home1.png)
-
+{% include figure-center.html url="/img/not-reddit/home.png" title="" class="" %}
 
 ## Overview
 Built using Ruby on Rails for backend, Bootstrap for a fully-responsive experience, PostgreSQL for database, and Rspec for all testing, Not Reddit provides a simple yet overall satisfying environment for users to discuss a range of topics. While Not Reddit may be navigated by guests, for the best experience, an account should be created. This provides the ability to create new posts, comment, upvote and downvote, favorite and follow posts receiving email notifications when another user comments, maintain a profile, as well as a few other features. In this post, we will explore the site page by page.
 
-The app is deployed on [Heroku](https://not-reddit-heroku.herokuapp.com/).  
-The source code is available on [GitHub](https://github.com/baka-san/not-reddit).
+The app is deployed on [Heroku](https://not-reddit-heroku.herokuapp.com/) and the source code is available on [GitHub](https://github.com/baka-san/not-reddit).
 
 ### Features
 - Guests can browse the site, except for private topics.
@@ -37,20 +33,34 @@ The source code is available on [GitHub](https://github.com/baka-san/not-reddit)
 
 ## Home Page
 
-{: .pull-left}
-![]({{ site.baseurl }}/img/not-reddit/home-mobile.gif)
+<!-- <div class="col col-sm-6 pull-left" markdown="1">
+  <img markdown="1" src="{{ site.baseurl }}/img/not-reddit/home-mobile.gif" class="img-fluid" alt="Responsive image">
+</div> -->
 
+<!-- <div class="col col-sm-6" markdown="1"> -->
 A user is greeted by Not Reddit’s welcome page, allowing a user to sign in or sign up. The welcome page is representative of Not Reddit’s design - [simple yet powerful](https://conversionxl.com/blog/why-simple-websites-are-scientifically-better/) - allowing users to focus on posting links, upvoting and downvoting, and getting into discussions and debates with other users. The page also boasts the site’s impressive accomplishments such as ending world hunger and poverty minutes after being launched. It also has been shown to make people significantly better looking in the laboratory. Thanks Not Reddit.
+<!-- </div> -->
 
 ## Topics Page
+
+{% include figure-center.html url="/img/not-reddit/topics-index.png" title="" class="" %}
+
 The topics page is viewable to any user, though only admin users can create new topics. This was intentional, in order to keep topics focused and prevent redundancy. Each topic is followed by a short description, allowing users to get an idea of what might be discussed.
+
+{% include figure-center.html url="/img/not-reddit/topics-show.png" title="" class="" %}
 
 When a topic is selected, the user is shown a more detailed view of the topic as well as all its associated posts. Posts are sorted by an algorithm based on number of votes and age of the post, keeping the feed fresh, yet populated with popular content.
 
 ## Posts Page
+
+{% include figure-center.html url="/img/not-reddit/posts-show.png" title="" class="" %}
+
 Posts are also viewable to any user, however only a user who is logged in may comment, vote, or favorite the post. Any user who has favorited a post will receive email notifications via  SendGrid when a new comment is posted. The owner of a post may delete the post, while the owner of a comment may delete their own comments. An admin can do whatever they want so don’t piss them off, bro.
 
 ## User Profile
+
+{% include figure-center.html url="/img/not-reddit/profile.png" title="" class="" %}
+
 Gettin trolled? Hop on over to their profile page to see what they’ve been up to. User’s with gravatar will have an image displayed along with the number of posts and comments they’ve made. All posts, comments, and favorited posts are also displayed chronologically on every user’s profile. This helps users stay in touch and discuss more with similar-minded people (as well as avoid those they don’t like).
 
 ## Privacy, Security, and Technical Junk
