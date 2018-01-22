@@ -5,7 +5,7 @@ class: not-wikipedia
 script-path:
 - scripts/not-wikipedia.js
 thumbnail-path: "img/not-wikipedia/not-wikipedia-thumb.gif"
-short-description: Like Wikipedia, Only Not
+short-description: Like Wikipedia, Only Not<br>Let's make Wikipedia great again.
 ---
 
 
@@ -305,11 +305,11 @@ With scoping out of the way, the last concern was displaying the relevant wikis 
 
 ## Live Editing of Wiki Pages
 
-{% include figure-left.html url="/img/not-wikipedia/live-preview-1.gif" title="Fig 5: Wiki Edit View" class="fig-5-large" %}
+{% include figure-left.html url="/img/not-wikipedia/live-preview-1.gif" title="Fig 5: Wiki Edit View" class="d-none d-lg-block" %}
 
-{% include figure-left.html url="/img/not-wikipedia/live-preview-2.gif" title="Fig 5: Wiki Edit View" class="fig-5-small" %}
+{% include figure-center.html url="/img/not-wikipedia/live-preview-2.gif" title="Fig 5: Wiki Edit View" class=" d-lg-none" %}
 
-{% include figure-left.html url="/img/not-wikipedia/live-preview-3.gif" class="fig-5-small  " %}
+{% include figure-center.html url="/img/not-wikipedia/live-preview-3.gif" class=" d-lg-none" %}
 
 In the `wiki#show` view, makdown is rendered through [Redcarpet](https://github.com/vmg/redcarpet), Markdown parser for Ruby. Since the show view is static - no data is changing - this option works great. The wiki's body is grabbed and passed through the Redcarpet, yielding beautiful markdown language. The problem is, in the `wiki#new` and `wiki#edit` views, the user enters and deletes data, but those changes are not reflected in ActiveRecord until the save button is pushed. So, a more dynamic Markdown parser was needed. Enter [Markdown-js](https://github.com/evilstreak/markdown-js), a Markdown parser for JavaScript. Using JavaScript, elements on the page can be grabbed and monitored for changes, regardless if ActiveRecord has been updated or not. The JavaScript code below watches the user input in the edit section, grabs that input on every keystroke, passes it to Markdown-js, and then takes that Markdown and attaches it to the live preview section. Also note the that the code below is wrapped in a try statement in order to stop the browser from throwing any unexpected errors.
 

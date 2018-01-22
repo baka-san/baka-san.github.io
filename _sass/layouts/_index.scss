@@ -99,13 +99,15 @@
     }
     .project-description {
       width:100%;
+      
       float:left;
       text-align: center;
       margin-bottom: 0;
       display: inline-block;
       @media (max-width: 768px) {
-        width:99%;
+        width: 99%;
       }
+
       a {
         strong {
           font-size:1.4em;

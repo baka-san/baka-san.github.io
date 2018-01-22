@@ -3,7 +3,7 @@ layout: post
 class: blocjams
 title: BlocJams
 thumbnail-path: "img/blocjams/blocjams.gif"
-short-description: BlocJams is a Spotify-esque music streaming service, allowing users to listen to all of their favorite albums at the click of a button.
+short-description: A Spotify-esque music streaming service, allowing users to listen to all of their favorite albums at the click of a button.
 ---
 
 {% include figure-center.html url="/img/blocjams/blocjams.png" title="" class="" %}
@@ -89,9 +89,7 @@ There is some other clever logic (such as playing the first song if the play but
 
 ## Concluding Remarks
 
-While Not Wikipedia employs a lot of great code, there was still so much I wanted to address. Here's a list of a few things off the top of my head:
-
-BlocJams has an overall decent UX. A user can play music and utilize many common features found in a music player. However, there are still many features which could be added to make the BlocJams UX better. 
+BlocJams has an overall smooth UX. A user can play music and utilize many common features found in a music player. However, there are still many features which could be added to make the BlocJams UX better. 
 Here are a few things:
 
 - Add player options such as repeat one and repeat all.
