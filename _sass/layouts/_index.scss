@@ -42,6 +42,11 @@
 .call-out p:last-child {
   margin-bottom: 0;
 }
+
+.announcement {
+  font-style: italic;
+}
+
 // Post listing
 .posts {
   @extend %padding-header;
