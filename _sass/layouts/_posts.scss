@@ -96,34 +96,14 @@ header {
 
 .post-content {
 
-  .before-modal { 
-    // display: initial;
-  }
-
-  .modal {
-    // display: initial;
-  }
-
   .modal-inline {
     display: initial;
     position: relative;
   }
-
-  // .modal + p {
-  //   display: initial;
-  //   margin-left: -5px;
-  // }
 }
 
 
 .not-wikipedia {
-
-  // @media (min-width: $screen-md) { 
-  //   .wiki-index {
-  //     display: inline-block;
-  //     max-width: 49%; 
-  //   }
-  // }
 
   .fig-5-large {
     @media (max-width: $screen-md) { 

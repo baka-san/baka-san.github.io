@@ -27,7 +27,7 @@ The app is deployed on [Heroku](https://bloc-jams-heroku.herokuapp.com/) and the
 
 {% include figure-left.html url="/img/blocjams/landing-animation.gif" title="Fig 2: The Animation" class="landing-animation" %}
 
-Users are greeted by BlocJams' stylish landing page. As seen in Figure 1, there are three elements which come into view as the user scrolls down the page. This effect was achieved using css <a href="#" class="modal-anchor" data-toggle="modal" data-target="#modal_target_2">transforms and transitions</a>. The elements are initially not visible due to the opacity being set to zero. The window is watched and when the user has scrolled far enough down the page (see Figure 2), a JavaScript function called <a href="#" class="modal-anchor" data-toggle="modal" data-target="#modal_target_3">animatePoints</a> is called, changing the opacity to 1 and animating the elements.
+Users are greeted by BlocJams' stylish landing page. As seen in Figure 2, there are three elements which come into view as the user scrolls down the page. This effect was achieved using css <a href="#" class="modal-anchor" data-toggle="modal" data-target="#modal_target_2">transforms and transitions</a>. The elements are initially not visible due to the opacity being set to zero. The window is watched and when the user has scrolled far enough down the page (see Figure 1), a JavaScript function called <a href="#" class="modal-anchor" data-toggle="modal" data-target="#modal_target_3">animatePoints</a> is called, changing the opacity to 1 and animating the elements.
 
 {% include modal.html id="2" type="code" title="styles/landing.css" language="css" file="code/blocjams/landing-transforms-transitions.css" %}
 
@@ -87,6 +87,20 @@ So a user clicks a song and it plays...sounds pretty simple, right? WRONG! There
 
 There is some other clever logic (such as playing the first song if the play button is clicked in the playbar but no song has been selected) which wasn't discussed here, so please make sure to check out the full code on [GitHub](https://github.com/baka-san/bloc-jams).
 
+## Concluding Remarks
+
+While Not Wikipedia employs a lot of great code, there was still so much I wanted to address. Here's a list of a few things off the top of my head:
+
+BlocJams has an overall decent UX. A user can play music and utilize many common features found in a music player. However, there are still many features which could be added to make the BlocJams UX better. 
+Here are a few things:
+
+- Add player options such as repeat one and repeat all.
+- Use Rails to create a users model.
+- Give users the ability to upload/sync music.
+- Give users the ability to sort by artist and song title in the album view.
+- Give users the ability to make playlists, rate songs, and all the other normal functionality.
+- Fix up a few random bugs in the functionality of the playbar.
+- Use more mobile friendly touch options for the playbar.
 
 
 ## Configuration

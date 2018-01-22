@@ -201,6 +201,12 @@ code.highlighter-rouge {
   font-weight: bold;
   text-decoration: none !important;
   outline: none !important;
+
+  white-space: pre-wrap; /* css-3 */    
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */    
+  white-space: -o-pre-wrap; /* Opera 7 */    
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
 .modal {
@@ -252,11 +258,7 @@ code.highlighter-rouge {
     /* These are technically the same, but use both */
     overflow-wrap: break-word;
     word-wrap: break-word;
-
     -ms-word-break: break-all;
-    /* This is the dangerous one in WebKit, as it breaks things wherever */
-    word-break: break-all;
-    /* Instead use this non-standard one: */
     word-break: break-word;
 
     /* Adds a hyphen where the word breaks, if supported (No Blink) */
