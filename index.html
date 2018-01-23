@@ -10,6 +10,7 @@ class: index-main
     <h3>Hold Your Horses</h3>
   </div>
 
+
   <div class="work">
     <h1>Projects</h1>
     {% for project in site.portfolio limit:5 %}
@@ -21,7 +22,7 @@ class: index-main
       </div>
       <div class="project-description">
        <a href="{{ project.url | prepend: site.baseurl }}"><strong>{{ project.title }}</strong></a>
-        <h4>{{ project.short-description }}</h4>
+        <h5>{{ project.short-description }}</h5>
       </div>
     </div>
     {% endfor %}
