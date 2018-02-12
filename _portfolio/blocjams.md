@@ -17,7 +17,7 @@ BlocJams is a Spotify-esque music streaming service, allowing users to listen to
 {% include modal.html id="1" type="code" title="path/to/code/hello_world.rb" language="ruby"
 body='puts "Hello World!"' %}
 
-The app is deployed on [Heroku](https://bloc-jams-heroku.herokuapp.com/) and the source code is available on [GitHub](https://github.com/baka-san/bloc-jams).
+The app is deployed on [Heroku](https://blocjams-heroku.herokuapp.com/) and the source code is available on [GitHub](https://github.com/baka-san/bloc-jams).
 
 
 
